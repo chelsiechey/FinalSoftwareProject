@@ -33,8 +33,13 @@ public class Inventory {
      * @return Returns either the Part object with the matching ID or null if not found
      */
     public static Part lookupPart(int partId) {
-        // FIX ME! Add code to find Part by partID
-        System.out.println("Fix me - Inventory model. Add code to find Part by partID.");
+        for (int i = 0; i < Inventory.getAllParts().size(); i++) {
+            Part currentPart = Inventory.getAllParts().get(i);
+
+            // Returns first match
+            if (currentPart.getId() == partId)
+                return currentPart;
+        }
         return null;
     }
 
