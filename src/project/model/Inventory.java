@@ -1,4 +1,4 @@
-package sample.model;
+package project.model;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 
@@ -38,6 +38,11 @@ public class Inventory {
         return null;
     }
 
+    /**
+     * This method returns the Product object with the matching ID
+     * @param productID The ID for the Product object that is being looked up
+     * @return Returns either the Product object with the matching ID or null if not found
+     */
     public static Product lookupProduct(int productID) {
         // FIX ME! Add code to find Product by productID
         System.out.println("Fix me - Inventory model. Add code to find productID.");

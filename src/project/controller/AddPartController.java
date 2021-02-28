@@ -1,4 +1,4 @@
-package sample.controller;
+package project.controller;
 
 public class AddPartController {
 }

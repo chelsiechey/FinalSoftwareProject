@@ -1,12 +1,10 @@
-package sample.controller;
+package project.controller;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 import javafx.scene.Parent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.HBox;
 import javafx.fxml.Initializable;
 import java.util.ResourceBundle;
 import java.net.URL;
