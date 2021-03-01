@@ -34,10 +34,10 @@ public class Inventory {
      * @return Returns either the Part object with the matching ID or null if not found
      */
     public static Part lookupPart(int partId) {
-        for (int i = 0; i < Inventory.getAllParts().size(); i++) {
-            Part currentPart = Inventory.getAllParts().get(i);
+        for (int index = 0; index < Inventory.getAllParts().size(); index++) {
+            Part currentPart = Inventory.getAllParts().get(index);
 
-            // Returns first match
+            // Returns matching part
             if (currentPart.getId() == partId)
                 return currentPart;
         }
@@ -46,12 +46,17 @@ public class Inventory {
 
     /**
      * This method returns the Product object with the matching ID
-     * @param productID The ID for the Product object that is being looked up
+     * @param productId The ID for the Product object that is being looked up
      * @return Returns either the Product object with the matching ID or null if not found
      */
-    public static Product lookupProduct(int productID) {
-        // FIX ME! Add code to find Product by productID
-        System.out.println("Fix me - Inventory model. Add code to find Product by productID.");
+    public static Product lookupProduct(int productId) {
+        for (int index = 0; index < Inventory.getAllProducts().size(); index++) {
+            Product currentProduct = Inventory.getAllProducts().get(index);
+
+            // Returns matching product
+            if (currentProduct.getId() == productId)
+                return currentProduct;
+        }
         return null;
     }
 
@@ -61,8 +66,9 @@ public class Inventory {
      * @return Returns either the Part object with the matching name or null if not found
      */
     public static ObservableList<Part> lookupPart(String partName) {
-        // FIX ME! Add code to find Part by partName
-        System.out.println("Fix me - Inventory model. Add code to find Part by partName.");
+        // FIX ME - search needs to filter if part of the name is typed. Will need to be an observable list so changes can be detected right away
+        System.out.println("Fix me - Inventory model. Add code to find Part by partName - full string or substring.");
+        ObservableList<Part> substringLookupParts = FXCollections.observableArrayList();
         return null;
     }
 
