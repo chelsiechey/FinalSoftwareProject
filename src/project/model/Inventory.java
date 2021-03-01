@@ -3,7 +3,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 
 /**
- * This public class provides Inventory methods
+ * Represents an inventory
+ * @author Chelsie Conrad
  */
 public class Inventory {
     // list of Part objects
