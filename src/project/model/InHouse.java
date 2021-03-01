@@ -10,7 +10,6 @@ public class InHouse extends Part {
     }
 
     // setter
-
     /**
      * @param machineId The value to set to the machine's ID
      */
@@ -19,7 +18,6 @@ public class InHouse extends Part {
     }
 
     // getter
-
     /**
      * @return Returns the machine's ID
      */
