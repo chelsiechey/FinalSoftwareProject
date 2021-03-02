@@ -38,8 +38,9 @@ public class Inventory {
             Part currentPart = Inventory.getAllParts().get(index);
 
             // Returns matching part
-            if (currentPart.getId() == partId)
+            if (currentPart.getId() == partId) {
                 return currentPart;
+            }
         }
         return null;
     }
@@ -54,8 +55,9 @@ public class Inventory {
             Product currentProduct = Inventory.getAllProducts().get(index);
 
             // Returns matching product
-            if (currentProduct.getId() == productId)
+            if (currentProduct.getId() == productId) {
                 return currentProduct;
+            }
         }
         return null;
     }
@@ -66,10 +68,16 @@ public class Inventory {
      * @return Returns either the Part object with the matching name or null if not found
      */
     public static ObservableList<Part> lookupPart(String partName) {
-        // FIX ME - search needs to filter if part of the name is typed. Will need to be an observable list so changes can be detected right away
-        System.out.println("Fix me - Inventory model. Add code to find Part by partName - full string or substring.");
-        ObservableList<Part> substringLookupParts = FXCollections.observableArrayList();
-        return null;
+        ObservableList<Part> partsContainingSubstring = FXCollections.observableArrayList();
+
+        // The for loop variable to the left of the colon is a temporary variable containing a single element from the collection on the right
+        // With each iteration through the loop, Java pulls the next element from the collection and assigns it to the temp variable.
+        for (Part currentPart : Inventory.getAllParts()) {
+            if (currentPart.getName().contains(partName)) {
+                partsContainingSubstring.add(currentPart);
+            }
+        }
+        return partsContainingSubstring;
     }
 
     /**
@@ -78,9 +86,16 @@ public class Inventory {
      * @return Returns either the Product object with the matching name or null if not found
      */
     public static ObservableList<Product> lookupProduct(String productName) {
-        // FIX ME! Add code to find Product by productName
-        System.out.println("Fix me - Inventory model. Add code to find Product by productName.");
-        return null;
+        ObservableList<Product> productsContainingSubstring = FXCollections.observableArrayList();
+
+        // The for loop variable to the left of the colon is a temporary variable containing a single element from the collection on the right
+        // With each iteration through the loop, Java pulls the next element from the collection and assigns it to the temp variable.
+        for (Product currentProduct : Inventory.getAllProducts()) {
+            if (currentProduct.getName().contains(productName)) {
+                productsContainingSubstring.add(currentProduct);
+            }
+        }
+        return productsContainingSubstring;
     }
 
     /**
@@ -89,8 +104,7 @@ public class Inventory {
      * @param selectedPart The new Part object that will replace the current Part object at the given index
      */
     public static void updatePart(int index, Part selectedPart) {
-        // FIX ME! Add code to update selected Part at index
-        System.out.println("Fix me - Inventory model. Add code to update the selected Part at the given index.");
+        allParts.set(index, selectedPart);
     }
 
     /**
@@ -99,8 +113,7 @@ public class Inventory {
      * @param newProduct The new Product object that will replace the current Product object at the given index
      */
     public static void updateProduct(int index, Product newProduct) {
-        // FIX ME! Add code to updated selected Product at index
-        System.out.println("Fix me - Inventory model. Add code to update the selected Product at the given index.");
+        allProducts.set(index, newProduct);
     }
 
     /**
@@ -109,7 +122,13 @@ public class Inventory {
      * @return Returns true if the Part is deleted from the Observable List and returns false if the Part is not found
      */
     public static boolean deletePart(Part selectedPart) {
-        // FIX ME! Add code to delete the selected Part from the ObservableList
+        // The for loop variable to the left of the colon is a temporary variable containing a single element from the collection on the right
+        // With each iteration through the loop, Java pulls the next element from the collection and assigns it to the temp variable.
+        for (Part currentPart : Inventory.getAllParts()) {
+            if (currentPart.getId() == selectedPart.getId()) {
+                return Inventory.getAllParts().remove(currentPart);
+            }
+        }
         return false;
     }
 
@@ -119,7 +138,13 @@ public class Inventory {
      * @return Returns true if the Product is deleted from the ObservableList and returns false if the Products is not found
      */
     public static boolean deletedProduct(Product selectedProduct) {
-        // FIX ME! Add code to delete the selected Product from the ObservableList
+        // The for loop variable to the left of the colon is a temporary variable containing a single element from the collection on the right
+        // With each iteration through the loop, Java pulls the next element from the collection and assigns it to the temp variable.
+        for (Product currentProduct : Inventory.getAllProducts()) {
+            if (currentProduct.getId() == selectedProduct.getId()) {
+                return Inventory.getAllProducts().remove(currentProduct);
+            }
+        }
         return false;
     }
 
