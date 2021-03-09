@@ -1,9 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="project.controller.AddPartController"
-            prefHeight="400.0" prefWidth="600.0">
-
+            prefHeight="600.0" prefWidth="1300.0">
+    <VBox prefHeight="600" prefWidth="1300" alignment="CENTER">
+        <Label text="Add Part"/>
+        <HBox alignment="CENTER">
+            <RadioButton fx:id="inHouseRadioButton" onAction="#inHouse" selected="true" text="In-House">
+                <toggleGroup>
+                    <ToggleGroup fx:id="inHouseOrOutsourcedToggleGroup" />
+                </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="outsourcedRadioButton" onAction="#outsourced" text="Outsourced">
+                <toggleGroup>
+                    <fx:reference source="inHouseOrOutsourcedToggleGroup"/>
+                </toggleGroup>
+            </RadioButton>
+        </HBox>
+        <HBox alignment="CENTER">
+            <VBox>
+                <Label text="ID" />
+                <TextField fx:id="partIdTextField" disable="true" />
+            </VBox>
+            <VBox>
+                <Label text="Name"/>
+                <TextField fx:id="partNameTextField"/>
+            </VBox>
+            <VBox>
+                <Label text="Price"/>
+                <TextField fx:id="partPriceTextField"/>
+            </VBox>
+            <VBox>
+                <Label text="Stock"/>
+                <TextField fx:id="partStockTextField"/>
+            </VBox>
+            <VBox>
+                <Label text="Min"/>
+                <TextField fx:id="partMinTextField"/>
+            </VBox>
+            <VBox>
+                <Label text="Max"/>
+                <TextField fx:id="partMaxTextField"/>
+            </VBox>
+            <VBox>
+                <Label fx:id="machineIdOrOutsourcedLabel" text="Machine ID"/>
+                <TextField fx:id="partMachineIdOrCompanyName"/>
+            </VBox>
+        </HBox>
+        <HBox alignment="CENTER">
+            <Button fx:id="saveNewPart" onAction="#saveNewPart" text="Save"/>
+            <Button fx:id="exitAddPart" onAction="#exitAddPart" text="Exit"/>
+        </HBox>
+    </VBox>
 </AnchorPane>

@@ -5,17 +5,17 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="project.controller.AddPartController"
+            fx:controller="project.controller.ModifyPartController"
             prefHeight="600.0" prefWidth="1300.0">
     <VBox prefHeight="600" prefWidth="1300" alignment="CENTER">
-        <Label text="Add Part"/>
+        <Label text="Modify Part"/>
         <HBox alignment="CENTER">
-            <RadioButton fx:id="inHouseRadioButton" onAction="#inHouse" selected="true" text="In-House">
+            <RadioButton fx:id="modifyInHouseRadioButton" onAction="#inHouse" selected="true" text="In-House">
                 <toggleGroup>
                     <ToggleGroup fx:id="inHouseOrOutsourcedToggleGroup" />
                 </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="outsourcedRadioButton" onAction="#outsourced" text="Outsourced">
+            <RadioButton fx:id="modifyOutsourcedRadioButton" onAction="#outsourced" text="Outsourced">
                 <toggleGroup>
                     <fx:reference source="inHouseOrOutsourcedToggleGroup"/>
                 </toggleGroup>
@@ -52,8 +52,8 @@
             </VBox>
         </HBox>
         <HBox alignment="CENTER">
-            <Button fx:id="saveNewPart" onAction="#saveNewPart" text="Save"/>
-            <Button fx:id="exitAddPart" onAction="#exitAddPart" text="Exit"/>
+            <Button fx:id="saveUpdatedPart" onAction="#saveUpdatedPart" text="Save"/>
+            <Button fx:id="exitModifyPart" onAction="#exitModifyPart" text="Exit"/>
         </HBox>
     </VBox>
 </AnchorPane>

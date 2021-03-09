@@ -36,8 +36,6 @@ public class Inventory {
     public static Part lookupPart(int partId) {
         for (int index = 0; index < Inventory.getAllParts().size(); index++) {
             Part currentPart = Inventory.getAllParts().get(index);
-
-            // Returns matching part
             if (currentPart.getId() == partId) {
                 return currentPart;
             }
@@ -53,14 +51,13 @@ public class Inventory {
     public static Product lookupProduct(int productId) {
         for (int index = 0; index < Inventory.getAllProducts().size(); index++) {
             Product currentProduct = Inventory.getAllProducts().get(index);
-
-            // Returns matching product
             if (currentProduct.getId() == productId) {
                 return currentProduct;
             }
         }
         return null;
     }
+
 
     /**
      * This method returns the Part with the matching name
@@ -137,7 +134,7 @@ public class Inventory {
      * @param selectedProduct The Product object being deleted
      * @return Returns true if the Product is deleted from the ObservableList and returns false if the Products is not found
      */
-    public static boolean deletedProduct(Product selectedProduct) {
+    public static boolean deleteProduct(Product selectedProduct) {
         // The for loop variable to the left of the colon is a temporary variable containing a single element from the collection on the right
         // With each iteration through the loop, Java pulls the next element from the collection and assigns it to the temp variable.
         for (Product currentProduct : Inventory.getAllProducts()) {
@@ -159,4 +156,5 @@ public class Inventory {
     public static ObservableList<Product> getAllProducts() {
         return allProducts;
     }
+    
 }
