@@ -1,14 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="project.controller.ModifyProductController"
             prefHeight="600.0" prefWidth="1300.0">
 
+    <VBox prefHeight="600" prefWidth="1300" alignment="CENTER">
+        <Label text="Modify Product"/>
+        <HBox alignment="CENTER">
+            <VBox>
+                <Label text="ID" />
+                <TextField fx:id="productIdTextField" disable="true" />
+            </VBox>
+            <VBox>
+                <Label text="Name"/>
+                <TextField fx:id="productNameTextField"/>
+            </VBox>
+            <VBox>
+                <Label text="Price"/>
+                <TextField fx:id="productPriceTextField"/>
+            </VBox>
+            <VBox>
+                <Label text="Stock"/>
+                <TextField fx:id="productStockTextField"/>
+            </VBox>
+            <VBox>
+                <Label text="Min"/>
+                <TextField fx:id="productMinTextField"/>
+            </VBox>
+            <VBox>
+                <Label text="Max"/>
+                <TextField fx:id="productMaxTextField"/>
+            </VBox>
+        </HBox>
+        <Label text="Add Associated Parts" />
+        <HBox prefHeight="600" prefWidth="600" alignment="CENTER" >
+            <TableView fx:id="partTable">
+                <columns>
+                    <TableColumn fx:id="partIdColumn" prefWidth="100" text="Part ID" />
+                    <TableColumn fx:id="partNameColumn" prefWidth="100" text="Part Name" />
+                    <TableColumn fx:id="partPriceColumn" prefWidth="100" text="Part Price" />
+                    <TableColumn fx:id="partStockColumn" prefWidth="100" text="Stock" />
+                    <TableColumn fx:id="partMinStockColumn" prefWidth="100" text="Min in Stock" />
+                    <TableColumn fx:id="partMaxStockColumn" prefWidth="100" text="Max in Stock" />
+                </columns>
+            </TableView>
+        </HBox>
+        <Label fx:id="partSearchResultInformationBar" text="Search by part name or ID." />
+        <TextField
+                fx:id="partSearchBar"
+                onKeyTyped="#searchParts"
+        />
+        <HBox alignment="CENTER">
+            <Button
+                    fx:id="addAssociatedPartButton"
+                    text="Add Associated Part"
+                    onAction="#addAssociatedPart"
+            />
+            <Button
+                    fx:id="removeAssociatedPartButton"
+                    text="Remove Associated Part"
+                    onAction="#removeAssociatedPart"
+            />
+        </HBox>
+        <HBox prefHeight="600" prefWidth="600" alignment="CENTER" >
+            <TableView fx:id="associatedPartsTable">
+                <columns>
+                    <TableColumn fx:id="associatedPartIdColumn" prefWidth="100" text="Part ID" />
+                    <TableColumn fx:id="associatedPartNameColumn" prefWidth="100" text="Part Name" />
+                    <TableColumn fx:id="associatedPartPriceColumn" prefWidth="100" text="Part Price" />
+                    <TableColumn fx:id="associatedPartStockColumn" prefWidth="100" text="Stock" />
+                    <TableColumn fx:id="associatedPartMinStockColumn" prefWidth="100" text="Min in Stock" />
+                    <TableColumn fx:id="associatedPartMaxStockColumn" prefWidth="100" text="Max in Stock" />
+                </columns>
+            </TableView>
+        </HBox>
+        <HBox alignment="CENTER">
+            <Button
+                    fx:id="saveUpdatedProduct"
+                    onAction="#saveUpdatedProduct"
+                    text="Save"
+            />
+            <Button
+                    fx:id="exitUpdatedProduct"
+                    onAction="#exitUpdatedProduct"
+                    text="Exit"
+            />
+        </HBox>
+    </VBox>
 </AnchorPane>

@@ -75,7 +75,10 @@ public class MainController implements Initializable {
             loader.setLocation(getClass().getResource("/project/view/ModifyPart.fxml"));
             loader.load();
             ModifyPartController modifyPartController = loader.getController();
+            System.out.println(modifyPartController);
+            System.out.println(partTable.getSelectionModel().getSelectedItem());
             modifyPartController.getPartToModify(partTable.getSelectionModel().getSelectedItem());
+
             modifyPartStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             scene = loader.getRoot();
             modifyPartStage.setTitle("Modify Part");
@@ -83,6 +86,7 @@ public class MainController implements Initializable {
             modifyPartStage.show();
         }
         catch (NullPointerException e) {
+            System.out.println(e);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Select a part to modify");
             alert.showAndWait();
@@ -129,11 +133,24 @@ public class MainController implements Initializable {
     }
 
     public void modifyProduct(ActionEvent event) throws IOException {
-        modifyProductStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/project/view/ModifyProduct.fxml"));
-        modifyProductStage.setTitle("Modify Product");
-        modifyProductStage.setScene(new Scene(scene));
-        modifyProductStage.show();
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/project/view/ModifyProduct.fxml"));
+            loader.load();
+            ModifyProductController modifyProductController = loader.getController();
+            modifyProductController.getProductToModify(productTable.getSelectionModel().getSelectedItem());
+            modifyProductStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            scene = loader.getRoot();
+            modifyProductStage.setTitle("Modify Product");
+            modifyProductStage.setScene(new Scene(scene));
+            modifyProductStage.show();
+        }
+        catch (NullPointerException e) {
+            System.out.println(e);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Select a product to modify");
+            alert.showAndWait();
+        }
     }
 
     /**
@@ -171,6 +188,7 @@ public class MainController implements Initializable {
         else {
             partSearchResultInformationBar.setText("Search by part name or ID.");
             partTable.getSelectionModel().clearSelection();
+            partTable.setItems(Inventory.getAllParts());
         }
     }
 
@@ -178,7 +196,6 @@ public class MainController implements Initializable {
         ObservableList<Product> productSearchResults = Inventory.lookupProduct(productSearchBar.getText());
         productTable.setItems(productSearchResults);
         if (productSearchResults.size() > 1 && !productSearchBar.getText().equals("")) {
-            productTable.getSelectionModel().clearSelection();
             productSearchResultInformationBar.setText("Showing " + productSearchResults.size() + " results.");
         }
         else if (productSearchResults.size() == 1 && !productSearchBar.getText().equals("")) {
@@ -191,6 +208,7 @@ public class MainController implements Initializable {
         else {
             productSearchResultInformationBar.setText("Search by product name or ID.");
             productTable.getSelectionModel().clearSelection();
+            productTable.setItems(Inventory.getAllProducts());
         }
     }
 

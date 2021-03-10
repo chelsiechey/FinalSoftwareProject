@@ -25,7 +25,7 @@ public class ModifyPartController {
     public TextField partPriceTextField;
     public TextField partNameTextField;
     public TextField partIdTextField;
-    public TextField partInvTextField;
+    public TextField partStockTextField;
     public TextField partMinTextField;
     public TextField partMaxTextField;
     public TextField partMachineIdOrCompanyName;
@@ -52,7 +52,7 @@ public class ModifyPartController {
                     Integer.parseInt(partIdTextField.getText()),
                     partNameTextField.getText(),
                     Double.parseDouble(partPriceTextField.getText()),
-                    Integer.parseInt(partInvTextField.getText()),
+                    Integer.parseInt(partStockTextField.getText()),
                     Integer.parseInt(partMinTextField.getText()),
                     Integer.parseInt(partMaxTextField.getText()),
                     Integer.parseInt(partMachineIdOrCompanyName.getText()))
@@ -62,7 +62,7 @@ public class ModifyPartController {
                    Integer.parseInt(partIdTextField.getText()),
                     partNameTextField.getText(),
                     Double.parseDouble(partPriceTextField.getText()),
-                    Integer.parseInt(partInvTextField.getText()),
+                    Integer.parseInt(partStockTextField.getText()),
                     Integer.parseInt(partMinTextField.getText()),
                     Integer.parseInt(partMaxTextField.getText()),
                     partMachineIdOrCompanyName.getText())
@@ -85,7 +85,7 @@ public class ModifyPartController {
         partIdTextField.setText(String.valueOf(partToModify.getId()));
         partNameTextField.setText(partToModify.getName());
         partPriceTextField.setText(String.valueOf(partToModify.getPrice()));
-        partInvTextField.setText(String.valueOf(partToModify.getStock()));
+        partStockTextField.setText(String.valueOf(partToModify.getStock()));
         partMinTextField.setText(String.valueOf(partToModify.getMin()));
         partMaxTextField.setText(String.valueOf(partToModify.getMax()));
         if (partToModify instanceof InHouse) {
