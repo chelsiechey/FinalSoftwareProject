@@ -5,15 +5,19 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="project.controller.MainController">
-    <VBox prefHeight="600" prefWidth="1300" alignment="CENTER">
+            fx:controller="project.controller.MainController"
+            prefHeight="900"
+            prefWidth="1300">
+    <VBox alignment="BOTTOM_RIGHT">
+    <VBox alignment="CENTER">
         <Label fx:id="mainPageTitle" text="Inventory" />
-        <HBox prefHeight="600" prefWidth="600" alignment="CENTER">
-            <VBox prefHeight="600" prefWidth="600" alignment="CENTER" >
-                <HBox.margin>
-                    <Insets right="5" />
-                </HBox.margin>
-                <Label fx:id="partTableTitle" text="Parts" />
+        <HBox alignment="CENTER">
+            <VBox alignment="CENTER" >
+                <Label fx:id="partTableTitle" text="Parts">
+                    <VBox.margin>
+                        <Insets top="20" bottom="20"/>
+                    </VBox.margin>
+                </Label>
                 <TableView fx:id="partTable">
                     <columns>
                         <TableColumn fx:id="partIdColumn" prefWidth="100" text="Part ID" />
@@ -24,28 +28,37 @@
                         <TableColumn fx:id="partMaxStockColumn" prefWidth="100" text="Max in Stock" />
                     </columns>
                 </TableView>
-                <Label fx:id="partSearchResultInformationBar" text="Search by part name or ID." />
-                <TextField
-                        fx:id="partSearchBar"
-                        onKeyTyped="#searchParts"
-                />
-                <HBox alignment="CENTER">
+                <Label fx:id="partSearchResultInformationBar" text="Search by part name or ID.">
+                    <VBox.margin>
+                        <Insets top="10" bottom="10"/>
+                    </VBox.margin>
+                </Label>
+                <TextField fx:id="partSearchBar" onKeyTyped="#searchParts">
+                    <VBox.margin>
+                        <Insets bottom="10"/>
+                    </VBox.margin>
+                </TextField>
+                <HBox alignment="CENTER" spacing="10">
                     <Button fx:id="addPartButton" text="Add"
-                        onAction="#addPart">
+                            onAction="#addPart">
                     </Button>
                     <Button fx:id="modifyPartButton" text="Modify"
-                        onAction="#modifyPart">
+                            onAction="#modifyPart">
                     </Button>
                     <Button fx:id="deletePartButton" text="Delete"
-                        onAction="#deletePart">
+                            onAction="#deletePart">
                     </Button>
                 </HBox>
+                <padding>
+                    <Insets right="25" />
+                </padding>
             </VBox>
-            <VBox prefHeight="600" prefWidth="600" alignment="CENTER" >
-                <HBox.margin>
-                    <Insets left="5" />
-                </HBox.margin>
-                <Label fx:id="productTableTitle" text="Products" />
+            <VBox alignment="CENTER" >
+                <Label fx:id="productTableTitle" text="Products">
+                    <VBox.margin>
+                        <Insets top="20" bottom="20"/>
+                    </VBox.margin>
+                </Label>
                 <TableView fx:id="productTable">
                     <columns>
                         <TableColumn fx:id="productIdColumn" prefWidth="100" text="Product ID" />
@@ -56,36 +69,39 @@
                         <TableColumn fx:id="productMaxStockColumn" prefWidth="100" text="Max in Stock" />
                     </columns>
                 </TableView>
-                <Label fx:id="productSearchResultInformationBar" text="Search by product name or ID."/>
-                <TextField
-                        fx:id="productSearchBar"
-                        onKeyTyped="#searchProducts"
-                />
-                <HBox alignment="CENTER">
+                <Label fx:id="productSearchResultInformationBar" text="Search by product name or ID.">
+                    <VBox.margin>
+                        <Insets top="10" bottom="10"/>
+                    </VBox.margin>
+                </Label>
+                <TextField fx:id="productSearchBar" onKeyTyped="#searchProducts">
+                    <VBox.margin>
+                        <Insets bottom="10"/>
+                    </VBox.margin>
+                </TextField>
+                <HBox alignment="CENTER" spacing="10">
                     <Button fx:id="addProductButton" text="Add"
-                        onAction="#addProduct">
+                            onAction="#addProduct">
                     </Button>
                     <Button fx:id="modifyProductButton" text="Modify"
-                        onAction="#modifyProduct">
+                            onAction="#modifyProduct">
                     </Button>
                     <Button
-                        fx:id="deleteProductButton"
-                        text="Delete"
-                        onAction="#deleteProduct">
-                    </Button>
+                            fx:id="deleteProductButton"
+                            text="Delete"
+                            onAction="#deleteProduct"
+                    />
                 </HBox>
             </VBox>
         </HBox>
         <padding>
-            <Insets bottom="10" left="10" right="10" top="10" />
+            <Insets topRightBottomLeft="25" />
         </padding>
-        <Button
-                onAction="#exit"
-                text="Exit"
-                alignment="BASELINE_RIGHT"
-        />
+    </VBox>
+    <Button
+            onAction="#exit"
+            text="Exit"
+    />
     </VBox>
 
 </AnchorPane>
-
-

@@ -15,6 +15,7 @@ import project.model.Inventory;
 import project.model.Part;
 import project.model.Product;
 import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 
 import javafx.event.ActionEvent;
 
@@ -97,6 +98,7 @@ public class MainController implements Initializable {
         try {
             Inventory.lookupPart(partTable.getSelectionModel().getSelectedItem().getId());
             Inventory.deletePart(partTable.getSelectionModel().getSelectedItem());
+            partTable.setItems(Inventory.getAllParts());
 
         }
         catch (NullPointerException e){
@@ -162,6 +164,7 @@ public class MainController implements Initializable {
         try {
             Inventory.lookupProduct(productTable.getSelectionModel().getSelectedItem().getId());
             Inventory.deleteProduct(productTable.getSelectionModel().getSelectedItem());
+            productTable.setItems(Inventory.getAllProducts());
 
         }
         catch (NullPointerException e){
@@ -171,9 +174,17 @@ public class MainController implements Initializable {
         }
     }
 
-
     public void searchParts(KeyEvent keyEvent) {
-        ObservableList<Part> partSearchResults = Inventory.lookupPart(partSearchBar.getText());
+        ObservableList<Part> partSearchResults = FXCollections.observableArrayList();
+        try {
+            int searchInput = Integer.parseInt(partSearchBar.getText());
+            Part intSearchResults = Inventory.lookupPart(searchInput);
+            partSearchResults.add(intSearchResults);
+        }
+        catch (NumberFormatException e) {
+            String searchInput = partSearchBar.getText();
+            partSearchResults.addAll(Inventory.lookupPart(searchInput));
+        }
         partTable.setItems(partSearchResults);
         if (partSearchResults.size() > 1 && !partSearchBar.getText().equals("")) {
             partSearchResultInformationBar.setText("Showing " + partSearchResults.size() + " results.");
@@ -193,7 +204,16 @@ public class MainController implements Initializable {
     }
 
     public void searchProducts(KeyEvent keyEvent) {
-        ObservableList<Product> productSearchResults = Inventory.lookupProduct(productSearchBar.getText());
+        ObservableList<Product> productSearchResults = FXCollections.observableArrayList();
+        try {
+            int searchInput = Integer.parseInt(productSearchBar.getText());
+            Product intSearchResults = Inventory.lookupProduct(searchInput);
+            productSearchResults.add(intSearchResults);
+        }
+        catch (NumberFormatException e) {
+            String searchInput = productSearchBar.getText();
+            productSearchResults.addAll(Inventory.lookupProduct(searchInput));
+        }
         productTable.setItems(productSearchResults);
         if (productSearchResults.size() > 1 && !productSearchBar.getText().equals("")) {
             productSearchResultInformationBar.setText("Showing " + productSearchResults.size() + " results.");

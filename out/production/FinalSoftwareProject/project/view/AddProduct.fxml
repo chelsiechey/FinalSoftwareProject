@@ -4,10 +4,9 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="project.controller.AddProductController"
-            prefHeight="600.0" prefWidth="1300.0">
+            fx:controller="project.controller.AddProductController">
 
-    <VBox prefHeight="600" prefWidth="1300" alignment="CENTER">
+    <VBox alignment="CENTER">
         <Label text="Add Product"/>
         <HBox alignment="CENTER">
             <VBox>
@@ -35,9 +34,9 @@
                 <TextField fx:id="productMaxTextField"/>
             </VBox>
         </HBox>
-        <Label text="Add Associated Parts" />
-        <HBox prefHeight="600" prefWidth="600" alignment="CENTER" >
-            <TableView fx:id="partTable">
+        <Label text="All Parts"/>
+        <HBox alignment="CENTER" >
+            <TableView fx:id="partTable" maxHeight="200">
                 <columns>
                     <TableColumn fx:id="partIdColumn" prefWidth="100" text="Part ID" />
                     <TableColumn fx:id="partNameColumn" prefWidth="100" text="Part Name" />
@@ -48,25 +47,21 @@
                 </columns>
             </TableView>
         </HBox>
-        <Label fx:id="partSearchResultInformationBar" text="Search by part name or ID." />
-        <TextField
-            fx:id="partSearchBar"
-            onKeyTyped="#searchParts"
-        />
-        <HBox alignment="CENTER">
+        <VBox alignment="CENTER">
+            <Label fx:id="partSearchResultInformationBar" text="Search by part name or ID." />
+            <TextField
+                fx:id="partSearchBar"
+                onKeyTyped="#searchParts"
+            />
             <Button
                 fx:id="addAssociatedPartButton"
-                text="Add Associated Part"
+                text="Add to Associated Parts"
                 onAction="#addAssociatedPart"
             />
-            <Button
-                fx:id="removeAssociatedPartButton"
-                text="Remove Associated Part"
-                onAction="#removeAssociatedPart"
-            />
-        </HBox>
-        <HBox prefHeight="600" prefWidth="600" alignment="CENTER" >
-            <TableView fx:id="associatedPartsTable">
+        </VBox>
+        <Label text="Associated Parts" />
+        <HBox alignment="CENTER" >
+            <TableView fx:id="associatedPartsTable" maxHeight="200">
                 <columns>
                     <TableColumn fx:id="associatedPartIdColumn" prefWidth="100" text="Part ID" />
                     <TableColumn fx:id="associatedPartNameColumn" prefWidth="100" text="Part Name" />
@@ -77,6 +72,11 @@
                 </columns>
             </TableView>
         </HBox>
+        <Button
+            fx:id="removeAssociatedPartButton"
+            text="Remove from Associated Parts"
+            onAction="#removeAssociatedPart"
+        />
         <HBox alignment="CENTER">
             <Button
                 fx:id="saveNewProduct"
