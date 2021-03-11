@@ -72,6 +72,7 @@ public class AddPartController implements Initializable {
     public void exitAddPart(ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/project/view/Main.fxml"));
+        stage.setTitle("Inventory System");
         stage.setScene(new Scene(scene));
         stage.show();
     }

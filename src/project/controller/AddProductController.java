@@ -71,6 +71,7 @@ public class AddProductController implements Initializable {
     public void exitAddProduct(ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/project/view/Main.fxml"));
+        stage.setTitle("Inventory System");
         stage.setScene(new Scene(scene));
         stage.show();
     }
@@ -123,10 +124,18 @@ public class AddProductController implements Initializable {
     }
 
     public void searchParts(KeyEvent keyEvent) {
-        ObservableList<Part> partSearchResults = Inventory.lookupPart(partSearchBar.getText());
+        ObservableList<Part> partSearchResults = FXCollections.observableArrayList();
+        try {
+            int searchInput = Integer.parseInt(partSearchBar.getText());
+            Part intSearchResults = Inventory.lookupPart(searchInput);
+            partSearchResults.add(intSearchResults);
+        }
+        catch (NumberFormatException e) {
+            String searchInput = partSearchBar.getText();
+            partSearchResults.addAll(Inventory.lookupPart(searchInput));
+        }
         partTable.setItems(partSearchResults);
         if (partSearchResults.size() > 1 && !partSearchBar.getText().equals("")) {
-            partTable.getSelectionModel().clearSelection();
             partSearchResultInformationBar.setText("Showing " + partSearchResults.size() + " results.");
         }
         else if (partSearchResults.size() == 1 && !partSearchBar.getText().equals("")) {
@@ -139,8 +148,10 @@ public class AddProductController implements Initializable {
         else {
             partSearchResultInformationBar.setText("Search by part name or ID.");
             partTable.getSelectionModel().clearSelection();
+            partTable.setItems(Inventory.getAllParts());
         }
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         partTable.setItems(Inventory.getAllParts());

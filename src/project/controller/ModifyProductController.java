@@ -77,6 +77,7 @@ public class ModifyProductController implements Initializable {
     public void exitUpdatedProduct(ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/project/view/Main.fxml"));
+        stage.setTitle("Inventory System");
         stage.setScene(new Scene(scene));
         stage.show();
     }
@@ -130,10 +131,18 @@ public class ModifyProductController implements Initializable {
     }
 
     public void searchParts(KeyEvent keyEvent) {
-        ObservableList<Part> partSearchResults = Inventory.lookupPart(partSearchBar.getText());
+        ObservableList<Part> partSearchResults = FXCollections.observableArrayList();
+        try {
+            int searchInput = Integer.parseInt(partSearchBar.getText());
+            Part intSearchResults = Inventory.lookupPart(searchInput);
+            partSearchResults.add(intSearchResults);
+        }
+        catch (NumberFormatException e) {
+            String searchInput = partSearchBar.getText();
+            partSearchResults.addAll(Inventory.lookupPart(searchInput));
+        }
         partTable.setItems(partSearchResults);
         if (partSearchResults.size() > 1 && !partSearchBar.getText().equals("")) {
-            partTable.getSelectionModel().clearSelection();
             partSearchResultInformationBar.setText("Showing " + partSearchResults.size() + " results.");
         }
         else if (partSearchResults.size() == 1 && !partSearchBar.getText().equals("")) {
@@ -146,6 +155,7 @@ public class ModifyProductController implements Initializable {
         else {
             partSearchResultInformationBar.setText("Search by part name or ID.");
             partTable.getSelectionModel().clearSelection();
+            partTable.setItems(Inventory.getAllParts());
         }
     }
 
@@ -157,9 +167,7 @@ public class ModifyProductController implements Initializable {
         productMinTextField.setText(String.valueOf(productToModify.getMin()));
         productMaxTextField.setText(String.valueOf(productToModify.getMax()));
 
-        for (Part part : productToModify.getAllAssociatedParts()) {
-            associatedParts.add(part);
-        }
+        associatedParts.addAll(productToModify.getAllAssociatedParts());
     }
 
     @Override
