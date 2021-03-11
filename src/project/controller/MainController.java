@@ -16,6 +16,7 @@ import project.model.Part;
 import project.model.Product;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
+import java.util.Optional;
 
 import javafx.event.ActionEvent;
 
@@ -97,9 +98,13 @@ public class MainController implements Initializable {
     public void deletePart(ActionEvent event) {
         try {
             Inventory.lookupPart(partTable.getSelectionModel().getSelectedItem().getId());
-            Inventory.deletePart(partTable.getSelectionModel().getSelectedItem());
-            partTable.setItems(Inventory.getAllParts());
-
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText("Delete?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                Inventory.deletePart(partTable.getSelectionModel().getSelectedItem());
+                partTable.setItems(Inventory.getAllParts());
+            }
         }
         catch (NullPointerException e){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -160,12 +165,21 @@ public class MainController implements Initializable {
      * @param event The event object created by clicking the Delete button
      */
     public void deleteProduct(ActionEvent event) {
-        // FIX ME
         try {
-            Inventory.lookupProduct(productTable.getSelectionModel().getSelectedItem().getId());
-            Inventory.deleteProduct(productTable.getSelectionModel().getSelectedItem());
-            productTable.setItems(Inventory.getAllProducts());
-
+            int id = productTable.getSelectionModel().getSelectedItem().getId();
+            Inventory.lookupProduct(id);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText("Delete?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                if (Inventory.lookupProduct(id).getAllAssociatedParts().size() > 0) {
+                    Alert alert1 = new Alert(Alert.AlertType.ERROR, "All associated parts must be removed before deleting.");
+                    alert1.showAndWait();
+                } else {
+                    Inventory.deleteProduct(productTable.getSelectionModel().getSelectedItem());
+                    productTable.setItems(Inventory.getAllProducts());
+                }
+            }
         }
         catch (NullPointerException e){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

@@ -76,26 +76,66 @@ public class AddProductController implements Initializable {
         stage.show();
     }
 
-    public void saveNewProduct(ActionEvent actionEvent) throws IOException {
-        int id = ++MainController.uniqueProductId;
-        Inventory.addProduct(new Product(
-                id,
-                productNameTextField.getText(),
-                Double.parseDouble(productPriceTextField.getText()),
-                Integer.parseInt(productStockTextField.getText()),
-                Integer.parseInt(productMinTextField.getText()),
-                Integer.parseInt(productMaxTextField.getText())
-        ));
-
-        Product currentProduct = Inventory.lookupProduct(id);
-        for (Part associatedPart : associatedParts) {
-            currentProduct.addAssociatedPart(associatedPart);
+    public boolean isMinMaxError(int min, int max) {
+        if (min >= max) {
+            return true;
         }
+        return false;
+    }
+    public boolean isStockError(int min, int max, int stock) {
+        if (stock > max) {
+            return true;
+        }
+        else if (stock < min) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
-        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/project/view/Main.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
+    public void saveNewProduct(ActionEvent actionEvent) throws IOException {
+        int min = Integer.parseInt(productMinTextField.getText());
+        int max = Integer.parseInt(productMaxTextField.getText());
+        int stock = Integer.parseInt(productStockTextField.getText());
+        boolean minMaxError = isMinMaxError(min, max);
+        boolean stockError = isStockError(min, max, stock);
+        if (minMaxError && stockError) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Min must be less than max, and stock must be between min and max.");
+            alert.showAndWait();
+        }
+        else if (minMaxError) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Min must be less than max.");
+            alert.showAndWait();
+        }
+        else if (stockError) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Stock must be between min and max.");
+            alert.showAndWait();
+        }
+        else {
+            int id = ++MainController.uniqueProductId;
+            Inventory.addProduct(new Product(
+                    id,
+                    productNameTextField.getText(),
+                    Double.parseDouble(productPriceTextField.getText()),
+                    Integer.parseInt(productStockTextField.getText()),
+                    Integer.parseInt(productMinTextField.getText()),
+                    Integer.parseInt(productMaxTextField.getText())
+            ));
+
+            Product currentProduct = Inventory.lookupProduct(id);
+            for (Part associatedPart : associatedParts) {
+                currentProduct.addAssociatedPart(associatedPart);
+            }
+
+            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/project/view/Main.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
     }
 
     public void removeAssociatedPart(ActionEvent actionEvent) {

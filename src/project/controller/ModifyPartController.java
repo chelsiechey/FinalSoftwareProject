@@ -43,35 +43,75 @@ public class ModifyPartController {
         machineIdOrOutsourcedLabel.setText("Company Name");
     }
 
-    public void saveUpdatedPart(ActionEvent actionEvent) throws IOException {
-        // Need to get the ID from the text field instead of generating it
-        Part partToBeUpdated = Inventory.lookupPart(Integer.parseInt(partIdTextField.getText()));
-        int partToBeUpdatedIndex = Inventory.getAllParts().indexOf(partToBeUpdated);
-        if (modifyInHouseRadioButton.isSelected()) {
-            Inventory.updatePart(partToBeUpdatedIndex, new InHouse(
-                    Integer.parseInt(partIdTextField.getText()),
-                    partNameTextField.getText(),
-                    Double.parseDouble(partPriceTextField.getText()),
-                    Integer.parseInt(partStockTextField.getText()),
-                    Integer.parseInt(partMinTextField.getText()),
-                    Integer.parseInt(partMaxTextField.getText()),
-                    Integer.parseInt(partMachineIdOrCompanyName.getText()))
-            );
-        } else {
-            Inventory.updatePart(partToBeUpdatedIndex, new Outsourced(
-                   Integer.parseInt(partIdTextField.getText()),
-                    partNameTextField.getText(),
-                    Double.parseDouble(partPriceTextField.getText()),
-                    Integer.parseInt(partStockTextField.getText()),
-                    Integer.parseInt(partMinTextField.getText()),
-                    Integer.parseInt(partMaxTextField.getText()),
-                    partMachineIdOrCompanyName.getText())
-            );
+    public boolean isMinMaxError(int min, int max) {
+        if (min >= max) {
+            return true;
         }
-        stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/project/view/Main.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
+        return false;
+    }
+    public boolean isStockError(int min, int max, int stock) {
+        if (stock > max) {
+            return true;
+        }
+        else if (stock < min) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public void saveUpdatedPart(ActionEvent actionEvent) throws IOException {
+        int min = Integer.parseInt(partMinTextField.getText());
+        int max = Integer.parseInt(partMaxTextField.getText());
+        int stock = Integer.parseInt(partStockTextField.getText());
+        boolean minMaxError = isMinMaxError(min, max);
+        boolean stockError = isStockError(min, max, stock);
+        if (minMaxError && stockError) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Min must be less than max, and stock must be between min and max.");
+            alert.showAndWait();
+        }
+        else if (minMaxError) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Min must be less than max.");
+            alert.showAndWait();
+        }
+        else if (stockError) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Stock must be between min and max.");
+            alert.showAndWait();
+        }
+        else {
+            // Need to get the ID from the text field instead of generating it
+            Part partToBeUpdated = Inventory.lookupPart(Integer.parseInt(partIdTextField.getText()));
+            int partToBeUpdatedIndex = Inventory.getAllParts().indexOf(partToBeUpdated);
+            if (modifyInHouseRadioButton.isSelected()) {
+                Inventory.updatePart(partToBeUpdatedIndex, new InHouse(
+                        Integer.parseInt(partIdTextField.getText()),
+                        partNameTextField.getText(),
+                        Double.parseDouble(partPriceTextField.getText()),
+                        stock,
+                        min,
+                        max,
+                        Integer.parseInt(partMachineIdOrCompanyName.getText()))
+                );
+            } else {
+                Inventory.updatePart(partToBeUpdatedIndex, new Outsourced(
+                        Integer.parseInt(partIdTextField.getText()),
+                        partNameTextField.getText(),
+                        Double.parseDouble(partPriceTextField.getText()),
+                        Integer.parseInt(partStockTextField.getText()),
+                        Integer.parseInt(partMinTextField.getText()),
+                        Integer.parseInt(partMaxTextField.getText()),
+                        partMachineIdOrCompanyName.getText())
+                );
+            }
+            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/project/view/Main.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
     }
 
     public void exitModifyPart(ActionEvent actionEvent) throws IOException {
