@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.AddProductController"
+            prefHeight="900.0" prefWidth="1300.0">
+
+    <VBox alignment="CENTER">
+        <Label text="Add Product">
+            <VBox.margin>
+                <Insets bottom="20"/>
+            </VBox.margin>
+        </Label>
+        <HBox alignment="CENTER" spacing="10">
+            <VBox prefWidth="170">
+                <Label text="ID" />
+                <TextField fx:id="productIdTextField" disable="true" />
+            </VBox>
+            <VBox prefWidth="170">
+                <Label text="Name"/>
+                <TextField fx:id="productNameTextField"/>
+            </VBox>
+            <VBox prefWidth="170">
+                <Label text="Price"/>
+                <TextField fx:id="productPriceTextField"/>
+            </VBox>
+            <VBox prefWidth="170">
+                <Label text="Stock"/>
+                <TextField fx:id="productStockTextField"/>
+            </VBox>
+            <VBox prefWidth="170">
+                <Label text="Min"/>
+                <TextField fx:id="productMinTextField"/>
+            </VBox>
+            <VBox prefWidth="170">
+                <Label text="Max"/>
+                <TextField fx:id="productMaxTextField"/>
+            </VBox>
+        </HBox>
+        <Label text="All Parts">
+            <VBox.margin>
+                <Insets top="20" bottom="20"/>
+            </VBox.margin>
+        </Label>
+        <HBox alignment="CENTER" >
+            <TableView fx:id="partTable" maxHeight="140">
+                <columns>
+                    <TableColumn fx:id="partIdColumn" prefWidth="100" text="Part ID" />
+                    <TableColumn fx:id="partNameColumn" prefWidth="100" text="Part Name" />
+                    <TableColumn fx:id="partPriceColumn" prefWidth="100" text="Part Price" />
+                    <TableColumn fx:id="partStockColumn" prefWidth="100" text="Stock" />
+                    <TableColumn fx:id="partMinStockColumn" prefWidth="100" text="Min in Stock" />
+                    <TableColumn fx:id="partMaxStockColumn" prefWidth="100" text="Max in Stock" />
+                </columns>
+            </TableView>
+        </HBox>
+        <VBox alignment="CENTER">
+            <Label fx:id="partSearchResultInformationBar" text="Search by part name or ID." >
+                <VBox.margin>
+                    <Insets top="10" bottom="10"/>
+                </VBox.margin>
+            </Label>
+            <TextField fx:id="partSearchBar" onKeyTyped="#searchParts">
+                <VBox.margin>
+                    <Insets bottom="10"/>
+                </VBox.margin>
+            </TextField>
+            <Button
+                fx:id="addAssociatedPartButton"
+                text="Add to Associated Parts"
+                onAction="#addAssociatedPart"
+            />
+        </VBox>
+        <Label text="Associated Parts">
+            <VBox.margin>
+                <Insets top="20" bottom="20"/>
+            </VBox.margin>
+        </Label>
+        <HBox alignment="CENTER" >
+            <TableView fx:id="associatedPartsTable" maxHeight="140">
+                <columns>
+                    <TableColumn fx:id="associatedPartIdColumn" prefWidth="100" text="Part ID" />
+                    <TableColumn fx:id="associatedPartNameColumn" prefWidth="100" text="Part Name" />
+                    <TableColumn fx:id="associatedPartPriceColumn" prefWidth="100" text="Part Price" />
+                    <TableColumn fx:id="associatedPartStockColumn" prefWidth="100" text="Stock" />
+                    <TableColumn fx:id="associatedPartMinStockColumn" prefWidth="100" text="Min in Stock" />
+                    <TableColumn fx:id="associatedPartMaxStockColumn" prefWidth="100" text="Max in Stock" />
+                </columns>
+            </TableView>
+        </HBox>
+        <Button fx:id="removeAssociatedPartButton" text="Remove from Associated Parts" onAction="#removeAssociatedPart">
+            <VBox.margin>
+                <Insets top="10" bottom="10"/>
+            </VBox.margin>
+        </Button>
+        <HBox alignment="CENTER" spacing="10">
+            <Button
+                fx:id="saveNewProduct"
+                onAction="#saveNewProduct"
+                text="Save"
+            />
+            <Button
+                fx:id="exitAddProduct"
+                onAction="#exitAddProduct"
+                text="Exit"
+            />
+        </HBox>
+        <padding>
+            <Insets top="15" bottom="15" left="115" right="115" />
+        </padding>
+    </VBox>
+</AnchorPane>
