@@ -1,9 +1,5 @@
 package project.model;
 
-/**
- * Represents and in-house part
- * @author Chelsie Conrad
- */
 public class InHouse extends Part {
     private int machineId;
 

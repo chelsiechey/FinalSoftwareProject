@@ -1,9 +1,5 @@
 package project.model;
 
-/**
- * Represents and outsourced part
- * @author Chelsie Conrad
- */
 public class Outsourced extends Part {
     private String companyName;
 

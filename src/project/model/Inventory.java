@@ -70,7 +70,7 @@ public class Inventory {
         // The for loop variable to the left of the colon is a temporary variable containing a single element from the collection on the right
         // With each iteration through the loop, Java pulls the next element from the collection and assigns it to the temp variable.
         for (Part currentPart : Inventory.getAllParts()) {
-            if (currentPart.getName().toLowerCase().contains(partName.toLowerCase())) {
+            if (currentPart.getName().contains(partName)) {
                 partsContainingSubstring.add(currentPart);
             }
         }
@@ -88,7 +88,7 @@ public class Inventory {
         // The for loop variable to the left of the colon is a temporary variable containing a single element from the collection on the right
         // With each iteration through the loop, Java pulls the next element from the collection and assigns it to the temp variable.
         for (Product currentProduct : Inventory.getAllProducts()) {
-            if (currentProduct.getName().toLowerCase().contains(productName.toLowerCase())) {
+            if (currentProduct.getName().contains(productName)) {
                 productsContainingSubstring.add(currentProduct);
             }
         }
@@ -147,16 +147,12 @@ public class Inventory {
 
     /**
      * This method returns and ObservableList with all of the Part objects.
-     * @return Returns an ObservableList with all of the Part objects
+     * @return Returns and ObservableList with all of the Part objects
      */
     public static ObservableList<Part> getAllParts() {
         return allParts;
     }
 
-    /**
-     * This method returns an ObservableList with all of the Product objects
-     * @return Returns an ObservableList with all of the Product objects
-     */
     public static ObservableList<Product> getAllProducts() {
         return allProducts;
     }
