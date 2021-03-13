@@ -28,7 +28,7 @@
                 <TextField fx:id="productPriceTextField"/>
             </VBox>
             <VBox prefWidth="170">
-                <Label text="Stock"/>
+                <Label text="Inv"/>
                 <TextField fx:id="productStockTextField"/>
             </VBox>
             <VBox prefWidth="170">
@@ -51,9 +51,9 @@
                     <TableColumn fx:id="partIdColumn" prefWidth="100" text="Part ID" />
                     <TableColumn fx:id="partNameColumn" prefWidth="100" text="Part Name" />
                     <TableColumn fx:id="partPriceColumn" prefWidth="100" text="Part Price" />
-                    <TableColumn fx:id="partStockColumn" prefWidth="100" text="Stock" />
-                    <TableColumn fx:id="partMinStockColumn" prefWidth="100" text="Min in Stock" />
-                    <TableColumn fx:id="partMaxStockColumn" prefWidth="100" text="Max in Stock" />
+                    <TableColumn fx:id="partStockColumn" prefWidth="100" text="Inv" />
+                    <TableColumn fx:id="partMinStockColumn" prefWidth="100" text="Min" />
+                    <TableColumn fx:id="partMaxStockColumn" prefWidth="100" text="Max" />
                 </columns>
             </TableView>
         </HBox>
@@ -85,9 +85,9 @@
                     <TableColumn fx:id="associatedPartIdColumn" prefWidth="100" text="Part ID" />
                     <TableColumn fx:id="associatedPartNameColumn" prefWidth="100" text="Part Name" />
                     <TableColumn fx:id="associatedPartPriceColumn" prefWidth="100" text="Part Price" />
-                    <TableColumn fx:id="associatedPartStockColumn" prefWidth="100" text="Stock" />
-                    <TableColumn fx:id="associatedPartMinStockColumn" prefWidth="100" text="Min in Stock" />
-                    <TableColumn fx:id="associatedPartMaxStockColumn" prefWidth="100" text="Max in Stock" />
+                    <TableColumn fx:id="associatedPartStockColumn" prefWidth="100" text="Inv" />
+                    <TableColumn fx:id="associatedPartMinStockColumn" prefWidth="100" text="Min" />
+                    <TableColumn fx:id="associatedPartMaxStockColumn" prefWidth="100" text="Max" />
                 </columns>
             </TableView>
         </HBox>

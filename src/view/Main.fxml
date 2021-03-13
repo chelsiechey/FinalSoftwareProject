@@ -23,9 +23,9 @@
                         <TableColumn fx:id="partIdColumn" prefWidth="100" text="Part ID" />
                         <TableColumn fx:id="partNameColumn" prefWidth="100" text="Part Name" />
                         <TableColumn fx:id="partPriceColumn" prefWidth="100" text="Part Price" />
-                        <TableColumn fx:id="partStockColumn" prefWidth="100" text="Stock" />
-                        <TableColumn fx:id="partMinStockColumn" prefWidth="100" text="Min in Stock" />
-                        <TableColumn fx:id="partMaxStockColumn" prefWidth="100" text="Max in Stock" />
+                        <TableColumn fx:id="partStockColumn" prefWidth="100" text="Inv" />
+                        <TableColumn fx:id="partMinStockColumn" prefWidth="100" text="Min" />
+                        <TableColumn fx:id="partMaxStockColumn" prefWidth="100" text="Max" />
                     </columns>
                 </TableView>
                 <Label fx:id="partSearchResultInformationBar" text="Search by part name or ID.">
@@ -64,9 +64,9 @@
                         <TableColumn fx:id="productIdColumn" prefWidth="100" text="Product ID" />
                         <TableColumn fx:id="productNameColumn" prefWidth="100" text="Product Name" />
                         <TableColumn fx:id="productPriceColumn" prefWidth="100" text="Product Price" />
-                        <TableColumn fx:id="productStockColumn" prefWidth="100" text="Stock" />
-                        <TableColumn fx:id="productMinStockColumn" prefWidth="100" text="Min in Stock" />
-                        <TableColumn fx:id="productMaxStockColumn" prefWidth="100" text="Max in Stock" />
+                        <TableColumn fx:id="productStockColumn" prefWidth="100" text="Inv" />
+                        <TableColumn fx:id="productMinStockColumn" prefWidth="100" text="Min" />
+                        <TableColumn fx:id="productMaxStockColumn" prefWidth="100" text="Max" />
                     </columns>
                 </TableView>
                 <Label fx:id="productSearchResultInformationBar" text="Search by product name or ID.">

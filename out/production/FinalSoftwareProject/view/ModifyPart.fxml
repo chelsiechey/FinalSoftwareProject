@@ -43,7 +43,7 @@
                 <TextField fx:id="partPriceTextField"/>
             </VBox>
             <VBox prefWidth="170">
-                <Label text="Stock"/>
+                <Label text="Inv"/>
                 <TextField fx:id="partStockTextField"/>
             </VBox>
             <VBox prefWidth="170">
