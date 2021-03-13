@@ -13,7 +13,9 @@ import project.model.Outsourced;
 import project.model.Part;
 import java.io.IOException;
 
-
+/**
+ * This class creates the ModifyPartController
+ */
 public class ModifyPartController {
     public RadioButton modifyInHouseRadioButton;
     public RadioButton modifyOutsourcedRadioButton;
@@ -32,88 +34,163 @@ public class ModifyPartController {
 
     @FXML
     private Label machineIdOrOutsourcedLabel;
-    @FXML
-    private TableView<Part> partTable;
 
+    /**
+     * This method sets the machineIdOrOutsourcedLabel to Machine ID
+     * @param actionEvent The ActionEvent object generated when the In-House radio button is selected.
+     */
     public void inHouse(ActionEvent actionEvent) {
         machineIdOrOutsourcedLabel.setText("Machine ID");
     }
 
-    public void outsourced(ActionEvent actionEvent) {
+    /**
+     * This method sets the machineIdOrOutsourcedLabel to Company Name
+     * @param actionEvent The ActionEvent object generated when the Outsourced radio button is selected
+     */
+    public void outsourced(ActionEvent actionEvent)
+    {
         machineIdOrOutsourcedLabel.setText("Company Name");
     }
 
+    /**
+     * This method determines if the minimum value is less than the maximum value.
+     * @param min The minimum value
+     * @param max The maximum value
+     * @return Returns true if min is greater than or equal to max or false if it is less than max.
+     * Checks to make sure minimum value should always be less than the maximum.
+     */
     public boolean isMinMaxError(int min, int max) {
-        if (min >= max) {
-            return true;
-        }
-        return false;
+        return min >= max;
     }
+
+    /**
+     * This method determines if the stock is between the minimum and maximum values.
+     * @param min The minimum value
+     * @param max The maximum value
+     * @param stock The number in stock (inventory)
+     * @return Returns true if stock is greater than max or less than min. Otherwise returns false.
+     * Checks to make sure that stock is always between the values of min and max.
+     */
     public boolean isStockError(int min, int max, int stock) {
         if (stock > max) {
             return true;
         }
-        else if (stock < min) {
+        else return stock < min;
+    }
+
+    /**
+     * This method determines if the input is an integer.
+     * @param input The String value that the method will attempt to convert to an integer.
+     * @return Returns true if the String can be converted to an integer. Otherwise returns false.
+     */
+    public boolean isInteger (String input) {
+        try {
+            Integer.parseInt(input);
             return true;
         }
-        else {
+        catch(NumberFormatException e) {
             return false;
         }
     }
 
-    public void saveUpdatedPart(ActionEvent actionEvent) throws IOException {
-        int min = Integer.parseInt(partMinTextField.getText());
-        int max = Integer.parseInt(partMaxTextField.getText());
-        int stock = Integer.parseInt(partStockTextField.getText());
-        boolean minMaxError = isMinMaxError(min, max);
-        boolean stockError = isStockError(min, max, stock);
-        if (minMaxError && stockError) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Min must be less than max, and stock must be between min and max.");
-            alert.showAndWait();
+    /**
+     * This method determines if the input is a double.
+     * @param input The String value that the method will attempt to convert to an integer.
+     * @return Returns true if the String can be converted to an integer. Otherwise returns false.
+     */
+    public boolean isDouble (String input) {
+        try {
+            Double.parseDouble(input);
+            return true;
         }
-        else if (minMaxError) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Min must be less than max.");
-            alert.showAndWait();
-        }
-        else if (stockError) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Stock must be between min and max.");
-            alert.showAndWait();
-        }
-        else {
-            // Need to get the ID from the text field instead of generating it
-            Part partToBeUpdated = Inventory.lookupPart(Integer.parseInt(partIdTextField.getText()));
-            int partToBeUpdatedIndex = Inventory.getAllParts().indexOf(partToBeUpdated);
-            if (modifyInHouseRadioButton.isSelected()) {
-                Inventory.updatePart(partToBeUpdatedIndex, new InHouse(
-                        Integer.parseInt(partIdTextField.getText()),
-                        partNameTextField.getText(),
-                        Double.parseDouble(partPriceTextField.getText()),
-                        stock,
-                        min,
-                        max,
-                        Integer.parseInt(partMachineIdOrCompanyName.getText()))
-                );
-            } else {
-                Inventory.updatePart(partToBeUpdatedIndex, new Outsourced(
-                        Integer.parseInt(partIdTextField.getText()),
-                        partNameTextField.getText(),
-                        Double.parseDouble(partPriceTextField.getText()),
-                        Integer.parseInt(partStockTextField.getText()),
-                        Integer.parseInt(partMinTextField.getText()),
-                        Integer.parseInt(partMaxTextField.getText()),
-                        partMachineIdOrCompanyName.getText())
-                );
-            }
-            stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-            scene = FXMLLoader.load(getClass().getResource("/project/view/Main.fxml"));
-            stage.setScene(new Scene(scene));
-            stage.show();
+        catch(NumberFormatException e) {
+            return false;
         }
     }
 
+    /**
+     * This method updates the Part object if there are no errors and then redirects to the main page.
+     * It uses the methods isInteger and isDouble to check that the user entered the correct data type.
+     * It uses the methods isMinMaxError and isStockError to determine if the values for min, max, and stock are appropriate.
+     * If the In-House radio button is selected, an InHouse part is created.
+     * If the Outsourced radio button is selected, an Outsourced part is created.
+     * @param actionEvent The ActionEvent object generated when the save button is pressed.
+     * @throws IOException Throws an exception if the fxml file for the Main page is not found
+     */
+    public void saveUpdatedPart(ActionEvent actionEvent) throws IOException {
+        boolean isMinInteger = isInteger(partMinTextField.getText());
+        boolean isMaxInteger = isInteger(partMaxTextField.getText());
+        boolean isStockInteger = isInteger(partStockTextField.getText());
+        boolean isPriceDouble = isDouble(partPriceTextField.getText());
+        if (modifyInHouseRadioButton.isSelected()) {
+            boolean isMachineIdInteger = isInteger(partMachineIdOrCompanyName.getText());
+            if (!isMinInteger || !isMaxInteger || !isStockInteger || !isPriceDouble || !isMachineIdInteger) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("The stock, min, max, and machine ID fields must be integers. Price must be a double.");
+                alert.showAndWait();
+            }
+        }
+        if (!isMinInteger || !isMaxInteger || !isStockInteger || !isPriceDouble) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("The stock, min, and max fields must be integers. Price must be a double.");
+            alert.showAndWait();
+        }
+        else {
+            int min = Integer.parseInt(partMinTextField.getText());
+            int max = Integer.parseInt(partMaxTextField.getText());
+            int stock = Integer.parseInt(partStockTextField.getText());
+            boolean minMaxError = isMinMaxError(min, max);
+            boolean stockError = isStockError(min, max, stock);
+            if (minMaxError && stockError) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("Min must be less than max, and stock must be between min and max.");
+                alert.showAndWait();
+            } else if (minMaxError) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("Min must be less than max.");
+                alert.showAndWait();
+            } else if (stockError) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("Stock must be between min and max.");
+                alert.showAndWait();
+            } else {
+                // Need to get the ID from the text field instead of generating it
+                Part partToBeUpdated = Inventory.lookupPart(Integer.parseInt(partIdTextField.getText()));
+                int partToBeUpdatedIndex = Inventory.getAllParts().indexOf(partToBeUpdated);
+                if (modifyInHouseRadioButton.isSelected()) {
+                    Inventory.updatePart(partToBeUpdatedIndex, new InHouse(
+                            Integer.parseInt(partIdTextField.getText()),
+                            partNameTextField.getText(),
+                            Double.parseDouble(partPriceTextField.getText()),
+                            stock,
+                            min,
+                            max,
+                            Integer.parseInt(partMachineIdOrCompanyName.getText()))
+                    );
+                } else {
+                    Inventory.updatePart(partToBeUpdatedIndex, new Outsourced(
+                            Integer.parseInt(partIdTextField.getText()),
+                            partNameTextField.getText(),
+                            Double.parseDouble(partPriceTextField.getText()),
+                            Integer.parseInt(partStockTextField.getText()),
+                            Integer.parseInt(partMinTextField.getText()),
+                            Integer.parseInt(partMaxTextField.getText()),
+                            partMachineIdOrCompanyName.getText())
+                    );
+                }
+                stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+                scene = FXMLLoader.load(getClass().getResource("/project/view/Main.fxml"));
+                stage.setScene(new Scene(scene));
+                stage.show();
+            }
+        }
+    }
+
+    /**
+     * This method brings the user back to the main page without saving the part.
+     * @param actionEvent The ActionEvent object generated when the exit button is pressed.
+     * @throws IOException Throws an exception if the fxml file for the Main page is not found
+     */
     public void exitModifyPart(ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/project/view/Main.fxml"));
@@ -122,10 +199,17 @@ public class ModifyPartController {
         stage.show();
     }
 
+    /**
+     * This method gets the part that was selected from the main page so the user can modify it.
+     * The text fields are populated with the Parts information
+     * The radio button is set to In-House if it was originally an InHouse Part
+     * The radio button is set to Outsourced if it was originally an Outsourced Part
+     * @param partToModify The Part object that was selected on the main page
+     */
     public void getPartToModify(Part partToModify) {
         partIdTextField.setText(String.valueOf(partToModify.getId()));
         partNameTextField.setText(partToModify.getName());
-        partPriceTextField.setText(String.valueOf(partToModify.getPrice()));
+        partPriceTextField.setText(String.format("%,.2f", partToModify.getPrice()));
         partStockTextField.setText(String.valueOf(partToModify.getStock()));
         partMinTextField.setText(String.valueOf(partToModify.getMin()));
         partMaxTextField.setText(String.valueOf(partToModify.getMax()));
